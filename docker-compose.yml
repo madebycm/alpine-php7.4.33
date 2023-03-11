@@ -1,0 +1,8 @@
+version: '3'
+services:
+  php7compiledhttpd:
+    build: .
+    volumes:
+      - ./www:/var/www/localhost/htdocs
+    ports:
+      - "80:80"
