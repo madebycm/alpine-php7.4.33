@@ -1,0 +1,31 @@
+FROM ubuntu:latest
+
+# https://prototype.php.net/distributions/php-7.4.8.tar.bz2 
+# https://www.php.net/distributions/php-7.4.33.tar.gz
+
+RUN apt-get update && \
+    apt-get install -y wget build-essential 
+
+# needed?
+RUN apt install libxml2-dev
+
+# for apache module
+RUN apt install apache2-dev
+
+RUN apt install pkg-config libsqlite3-dev
+
+CMD [ "tail", "-f", "/dev/null" ]
+
+#make clean && ./configure --with-apxs2=/usr/bin/apxs2 --enable-maintainer-zts --enable-intl && make && make install
+
+#/etc/apache2/mods-available/php7.load                                                          
+#LoadModule php7_module        /usr/lib/apache2/modules/libphp7.so
+#<FilesMatch \.php$>
+#    SetHandler application/x-httpd-php
+#</FilesMatch>
+
+# as per https://bugs.php.net/bug.php?id=80310&edit=3
+# if compiling with INTL -> icu bugs, but this release
+# https://github.com/unicode-org/icu/releases/tag/release-67-1 
+# can be compiled and will let you compile intl from /ect/intl (run phpize, then ./configure, then make, then make install)
+# remove libicu-dev from apt-get install
